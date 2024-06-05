@@ -1,17 +1,15 @@
 const express = require("express");
-const kodersUseCase = require("../usecases/koders.usecase");
-const auth = require("../middlewares/auth.middleware");
+const generationUseCase = require("../usecases/generations.usecase");
 
 const route = express.Router();
 
-// Obtener todos los koders registrados
-route.get("/", auth, async (request, response) => {
+route.get("/", async (request, response) => {
   try {
-    const koders = await kodersUseCase.getAll();
+    const generation = await generationUseCase.getAll();
     response.json({
       succes: true,
-      message: "All koders",
-      data: { koders },
+      message: "All generation",
+      data: { generation },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -23,11 +21,11 @@ route.get("/", auth, async (request, response) => {
 
 route.post("/", async (request, response) => {
   try {
-    const koders = await kodersUseCase.create(request.body);
+    const generations = await generationUseCase.create(request.body);
 
     response.json({
       succes: true,
-      data: { koder: koders },
+      data: { generation: generations },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -39,15 +37,14 @@ route.post("/", async (request, response) => {
   }
 });
 
-// GET /koders/:id
-route.get("/:id", auth, async (request, response) => {
+route.get("/:id", async (request, response) => {
   try {
     const { id } = request.params;
-    const koder = await kodersUseCase.getById(id);
+    const generation = await generationUseCase.getById(id);
 
     response.json({
       succes: true,
-      data: { koder },
+      data: { generation },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -58,14 +55,14 @@ route.get("/:id", auth, async (request, response) => {
   }
 });
 
-route.delete("/:id", auth, async (request, response) => {
+route.delete("/:id", async (request, response) => {
   try {
     const { id } = request.params;
-    const koderDeleted = await kodersUseCase.deleteById(id);
+    const generationDeleted = await generationUseCase.deleteById(id);
 
     response.json({
       succes: true,
-      data: { koder: koderDeleted },
+      data: { generation: generationDeleted },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -76,14 +73,14 @@ route.delete("/:id", auth, async (request, response) => {
   }
 });
 
-route.patch("/:id", auth, async (request, response) => {
+route.patch("/:id", async (request, response) => {
   try {
     const { id } = request.params;
-    const koderUpdate = await kodersUseCase.updateById(id);
+    const generationUpdate = await generationUseCase.updateById(id);
 
     response.json({
       succes: true,
-      data: { koder: koderUpdate },
+      data: { generation: generationUpdate },
     });
   } catch (error) {
     response.status(error.status || 500);

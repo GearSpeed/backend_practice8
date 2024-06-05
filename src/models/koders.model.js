@@ -27,6 +27,10 @@ const schema = new mongoose.Schema({
     type: Date,
     required: false,
   },
+  generation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "generations",
+  },
   createdAt: {
     //Creacion del documento, se llena en automatico
     type: Date,
