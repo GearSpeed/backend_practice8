@@ -1,3 +1,4 @@
+const cors = require("cors");
 const express = require("express");
 
 const kodersRoute = require("./routes/koders.routes");
@@ -8,6 +9,7 @@ const generationRouter = require("./routes/generation.router");
 const app = express();
 
 //middleware
+app.use(cors());
 app.use(express.json());
 
 app.use("/koders", kodersRoute);
